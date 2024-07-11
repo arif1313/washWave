@@ -1,60 +1,57 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
-import bcrypt from 'bcrypt';
-import config from '../../config';
+
 const NewUserSchema = new Schema<TUser>(
   {
-    id: {
+    name: {
       type: String,
-      required: true,
+      required: [true, 'Name is required'],
+      trim: true,
+      maxlength: [20, 'Name can not be more than 20 characters'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
     },
     password: {
       type: String,
       required: true,
     },
-    needPassChange: {
-      type: Boolean,
-      default: true,
+    phone: {
+      type: String,
+      required: true,
     },
     role: {
       type: String,
-      enum: {
-        values: ['student', 'faculty', 'admin'],
-        message: 'enter correct role ',
-      },
+      enum: ['admin', 'user'],
+      required: true,
     },
-    status: {
+    address: {
       type: String,
-      enum: {
-        values: ['inprogress', 'block'],
-        message: 'enter correct status ',
-      },
-    },
-    isDleleted: {
-      type: Boolean,
-      default: false,
+      required: true,
     },
   },
   {
     timestamps: true,
   },
 );
-NewUserSchema.pre('save', async function (next) {
+/*NewUserSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this; // doc
   // hashing password and save into DB
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.bcrypt_salt_rounds),
+   // Number(config.bcrypt_salt_rounds),
   );
   next();
 });
-
+*/
 // set '' after saving password
-NewUserSchema.post('save', function (doc, next) {
+/*NewUserSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
-
+*/
 // 3. Create a Model.
 export const UserModel = model<TUser>('User', NewUserSchema);

@@ -1,14 +1,8 @@
 export type TUser = {
-  id: string;
+  name: string;
+  email: string;
   password: string;
-  needPassChange: boolean;
-  role: 'student' | 'faculty' | 'admin';
-  status: 'inprogress' | 'block';
-  isDleleted: boolean;
+  phone: string;
+  role: 'admin' | 'user';
+  address: string;
 };
-// use parse in service
-// export type newUser = {
-//   role: string;
-//   password: string;
-//   id: string;
-// };
