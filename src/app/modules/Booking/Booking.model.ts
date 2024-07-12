@@ -55,7 +55,6 @@ const BookingSchema = new Schema<TBooking>(
   },
 );
 
-// Create a Mongoose model based on the schema
 const Booking = model<TBooking>('Booking', BookingSchema);
 
 export default Booking;
