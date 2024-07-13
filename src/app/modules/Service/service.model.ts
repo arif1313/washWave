@@ -31,6 +31,6 @@ const ServiceSchema = new Schema<TService>(
     timestamps: true,
   },
 );
-const Service = model<TService>('Service', ServiceSchema);
+const ServiceModel = model<TService>('Service', ServiceSchema);
 
-export default Service;
+export default ServiceModel;
