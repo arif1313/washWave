@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const BookingSchema = z.object({
+const TBookingValidationSchema = z.object({
   customer: z
     .string({ required_error: 'Customer is required' })
     .trim()
@@ -37,4 +37,4 @@ const BookingSchema = z.object({
   }),
 });
 
-export const bookingValidation = { BookingSchema };
+export { TBookingValidationSchema };

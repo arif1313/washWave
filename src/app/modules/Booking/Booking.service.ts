@@ -1,10 +1,8 @@
 import { TBooking } from './Booking.interface';
 import BookingModel from './Booking.model';
 
-const createBookingInDb = async () => {
-  const bookingData: Partial<TBooking> = {};
-
-  const newBooking = await BookingModel.create(bookingData);
+const createBookingInDb = async (Booking: TBooking) => {
+  const newBooking = await BookingModel.create(Booking);
 
   return newBooking;
 };
