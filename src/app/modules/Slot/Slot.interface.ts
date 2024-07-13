@@ -1,6 +1,6 @@
 export type TSlot = {
   service: string;
-  date: Date;
+  date: string;
   startTime: string;
   endTime: string;
   isBooked: 'available' | 'booked' | 'canceled';

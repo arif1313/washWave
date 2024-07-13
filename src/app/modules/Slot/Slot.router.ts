@@ -5,4 +5,4 @@ const Router = express.Router();
 
 Router.post('/create-slod', slodControlers.createSlod);
 
-export const userRouter = Router;
+export const slodRouter = Router;

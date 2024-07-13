@@ -7,7 +7,7 @@ const SlotSchema = new Schema<TSlot>(
       required: [true, 'Service is required'],
     },
     date: {
-      type: Date,
+      type: String,
       required: [true, 'Date is required'],
     },
     startTime: {

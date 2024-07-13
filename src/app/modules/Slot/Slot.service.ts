@@ -1,10 +1,8 @@
 import { TSlot } from './Slot.interface';
 import SlotModel from './Slot.model';
 
-const createSlodInDb = async () => {
-  const slodData: Partial<TSlot> = {};
-
-  const newSlod = await SlotModel.create(slodData);
+const createSlodInDb = async (Slod: TSlot) => {
+  const newSlod = await SlotModel.create(Slod);
 
   return newSlod;
 };
