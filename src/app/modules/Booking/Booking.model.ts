@@ -55,6 +55,6 @@ const BookingSchema = new Schema<TBooking>(
   },
 );
 
-const Booking = model<TBooking>('Booking', BookingSchema);
+const BookingModel = model<TBooking>('Booking', BookingSchema);
 
-export default Booking;
+export default BookingModel;

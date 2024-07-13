@@ -5,8 +5,9 @@ const BookingSchema = z.object({
     .string({ required_error: 'Customer is required' })
     .trim()
     .max(20, { message: 'Customer name can not be more than 20 characters' }),
-
   service: z.string({ required_error: 'service is required' }).trim(),
+
+  //service: z.string({ required_error: 'service is required' }).trim(),
 
   slot: z.string({ required_error: 'slot is required' }),
 

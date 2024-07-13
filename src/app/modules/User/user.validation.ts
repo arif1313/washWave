@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const NewUserSchema = z.object({
+const TUserValidSchema = z.object({
   name: z
     .string({ required_error: 'Name is required' })
     .trim()
@@ -20,6 +20,4 @@ const NewUserSchema = z.object({
   address: z.string({ required_error: 'Phone Number is required' }),
 });
 
-export const userValidation = {
-  NewUserSchema,
-};
+export { TUserValidSchema };

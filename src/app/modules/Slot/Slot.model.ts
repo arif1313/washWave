@@ -28,6 +28,6 @@ const SlotSchema = new Schema<TSlot>(
     timestamps: true,
   },
 );
-const Slot = model<TSlot>('Slot', SlotSchema);
+const SlotModel = model<TSlot>('Slot', SlotSchema);
 
-export default Slot;
+export default SlotModel;
