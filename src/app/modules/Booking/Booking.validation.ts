@@ -1,16 +1,15 @@
 import { z } from 'zod';
-
+const objectIdPattern = /^[0-9a-fA-F]{24}$/;
 const TBookingValidationSchema = z.object({
   customer: z
     .string({ required_error: 'Customer is required' })
-    .trim()
-    .max(20, { message: 'Customer name can not be more than 20 characters' }),
-  service: z.string({ required_error: 'service is required' }).trim(),
-
-  //service: z.string({ required_error: 'service is required' }).trim(),
-
-  slot: z.string({ required_error: 'slot is required' }),
-
+    .regex(objectIdPattern, 'Invalid coustomer Id'),
+  service: z
+    .string({ required_error: 'service is required' })
+    .regex(objectIdPattern, 'Invalid serviceId'),
+  slot: z
+    .string({ required_error: 'slod is required' })
+    .regex(objectIdPattern, 'Invalid slodId'),
   vehicleType: z.enum(
     [
       'car',

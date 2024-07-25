@@ -1,8 +1,13 @@
 import { TUser } from './user.interface';
-import { UserModel } from './user.modle';
+import { MUserModel } from './user.modle';
 
-const createUserInDb = async (User: TUser) => {
-  const result = await UserModel.create(User);
+const createUserInDb = async (UserData: TUser) => {
+  const user = new MUserModel(UserData);
+  if (await user.isUserExists(UserData.email)) {
+    throw new Error('user Already exist');
+  }
+
+  const result = await user.save(); //built in instance
   return result;
 };
 export const userService = {

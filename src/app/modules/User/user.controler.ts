@@ -20,8 +20,7 @@ const createUser = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'somethign worng',
-      error: err,
+      message: err.message,
     });
   }
 };

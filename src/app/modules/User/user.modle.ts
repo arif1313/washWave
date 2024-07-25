@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { TUser } from './user.interface';
+import { IUserMethods, TUser, UserModel } from './user.interface';
 
-const NewUserSchema = new Schema<TUser>(
+const NewUserSchema = new Schema<TUser, UserModel, IUserMethods>(
   {
     name: {
       type: String,
@@ -36,17 +36,17 @@ const NewUserSchema = new Schema<TUser>(
     timestamps: true,
   },
 );
-/*NewUserSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this; // doc
-  // hashing password and save into DB
-  user.password = await bcrypt.hash(
-    user.password,
-   // Number(config.bcrypt_salt_rounds),
-  );
-  next();
-});
-*/
+NewUserSchema.methods.isUserExists = async function (email: string) {
+  const existingUser = await MUserModel.findOne({ email });
+  return existingUser;
+};
+// NewUserSchema.pre('save', async function (next) {
+//   const user = this; // doc
+
+//   user.password = await bcrypt.hash(user.password);
+//   next();
+// });
+
 // set '' after saving password
 /*NewUserSchema.post('save', function (doc, next) {
   doc.password = '';
@@ -54,4 +54,4 @@ const NewUserSchema = new Schema<TUser>(
 });
 */
 // 3. Create a Model.
-export const UserModel = model<TUser>('User', NewUserSchema);
+export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);

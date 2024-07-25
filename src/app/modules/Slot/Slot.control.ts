@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { TSlodValidationSchema } from './Slot.validation';
 import { slodService } from './Slot.service';
+import { Types } from 'mongoose';
 
 // import { error } from 'console';
 
@@ -10,7 +11,11 @@ const createSlod = async (req: Request, res: Response) => {
 
     const slodData = req.body;
     const zodParseSlodData = TSlodValidationSchema.parse(slodData);
-    const result = await slodService.createSlodInDb(zodParseSlodData);
+    const slodDataWithObjectId = {
+      ...zodParseSlodData,
+      service: new Types.ObjectId(zodParseSlodData.service),
+    };
+    const result = await slodService.createSlodInDb(slodDataWithObjectId);
     res.status(200).json({
       success: true,
       message: 'user created successfully!',

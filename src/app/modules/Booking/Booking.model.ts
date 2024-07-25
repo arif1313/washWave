@@ -3,19 +3,20 @@ import { TBooking } from './Booking.interface';
 const BookingSchema = new Schema<TBooking>(
   {
     customer: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, 'Customer is required'],
-      trim: true,
-      maxlength: [20, 'Customer name can not be more than 20 characters'],
+
+      ref: 'UserModel',
     },
     service: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, 'Service is required'],
-      trim: true,
+      ref: 'ServiceModel',
     },
     slot: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: [true, 'Slod is required'],
+      ref: 'SlotModel',
     },
     vehicleType: {
       type: String,
@@ -48,6 +49,7 @@ const BookingSchema = new Schema<TBooking>(
     registrationPlate: {
       type: String,
       required: [true, 'Registation plate is required'],
+      unique: true,
     },
   },
   {
