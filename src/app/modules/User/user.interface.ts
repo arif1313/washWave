@@ -8,7 +8,11 @@ export type TUser = {
   role: 'admin' | 'user';
   address: string;
 };
-export type IUserMethods = {
+export interface UserModel extends Model<TUser> {
   isUserExists(email: string): Promise<TUser | null>;
-};
-export type UserModel = Model<TUser, Record<string, never>, IUserMethods>;
+}
+//for instance
+// export type IUserMethods = {
+//   isUserExists(email: string): Promise<TUser | null>;
+// };
+// export type UserModel = Model<TUser, IUserModel>;

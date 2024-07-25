@@ -2,12 +2,17 @@ import { TUser } from './user.interface';
 import { MUserModel } from './user.modle';
 
 const createUserInDb = async (UserData: TUser) => {
-  const user = new MUserModel(UserData);
-  if (await user.isUserExists(UserData.email)) {
+  if (await MUserModel.isUserExists) {
     throw new Error('user Already exist');
   }
+  const result = await MUserModel.create(UserData);
 
-  const result = await user.save(); //built in instance
+  // for creating a custom instance
+  // const user = new MUserModel(UserData);
+  // if (await user.isExisting(UserData.email)) {
+  //   throw new Error('user Already exist');
+  // }
+  // const result = await user.save(); //built in instance
   return result;
 };
 export const userService = {

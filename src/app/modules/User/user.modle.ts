@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
-import { IUserMethods, TUser, UserModel } from './user.interface';
+import { TUser, UserModel } from './user.interface';
 
-const NewUserSchema = new Schema<TUser, UserModel, IUserMethods>(
+const NewUserSchema = new Schema<TUser, UserModel>(
   {
     name: {
       type: String,
@@ -36,10 +36,17 @@ const NewUserSchema = new Schema<TUser, UserModel, IUserMethods>(
     timestamps: true,
   },
 );
-NewUserSchema.methods.isUserExists = async function (email: string) {
-  const existingUser = await MUserModel.findOne({ email });
-  return existingUser;
+//for statc mehod
+NewUserSchema.statics.isUserExists = async function (email: string) {
+  const exisTingUser = await MUserModel.findOne({ email });
+  return exisTingUser;
 };
+//for instance
+// NewUserSchema.methods.isUserExists = async function (email: string) {
+//   const existingUser = await MUserModel.findOne({ email });
+//   return existingUser;
+// };
+
 // NewUserSchema.pre('save', async function (next) {
 //   const user = this; // doc
 
