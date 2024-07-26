@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
-
+import bcrypt from 'bcrypt';
+import config from '../../config';
 const NewUserSchema = new Schema<TUser, UserModel>(
   {
     name: {
@@ -36,6 +37,23 @@ const NewUserSchema = new Schema<TUser, UserModel>(
     timestamps: true,
   },
 );
+//creating pre hook
+NewUserSchema.pre('save', async function (next) {
+  // console.log(this, 'this is pre hook');
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const ThisUser = this;
+  ThisUser.password = await bcrypt.hash(
+    ThisUser.password,
+    Number(config.SOLT_Round),
+  );
+  next();
+});
+
+//creating post hook
+NewUserSchema.post('save', async function () {
+  console.log(this, 'this is post hook');
+});
+
 //for statc mehod
 NewUserSchema.statics.isUserExists = async function (email: string) {
   const exisTingUser = await MUserModel.findOne({ email });
