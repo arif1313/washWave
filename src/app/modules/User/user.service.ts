@@ -3,6 +3,7 @@ import { MUserModel } from './user.modle';
 
 const createUserInDb = async (UserData: TUser) => {
   if (await MUserModel.isUserExists) {
+    console.log(MUserModel.isUserExists);
     throw new Error('user Already exist');
   }
   const result = await MUserModel.create(UserData);

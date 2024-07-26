@@ -37,7 +37,7 @@ const NewUserSchema = new Schema<TUser, UserModel>(
     timestamps: true,
   },
 );
-//creating pre hook
+// creating pre hook
 NewUserSchema.pre('save', async function (next) {
   // console.log(this, 'this is pre hook');
   // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -50,27 +50,21 @@ NewUserSchema.pre('save', async function (next) {
 });
 
 //creating post hook
-NewUserSchema.post('save', async function () {
-  console.log(this, 'this is post hook');
-});
-
+// NewUserSchema.post('save', async function () {
+//   console.log(this, 'this is post hook');
+// });
+export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
 //for statc mehod
 NewUserSchema.statics.isUserExists = async function (email: string) {
-  const exisTingUser = await MUserModel.findOne({ email });
-  return exisTingUser;
+  const existUser = await MUserModel.findOne({ email });
+  return existUser;
 };
+
 //for instance
 // NewUserSchema.methods.isUserExists = async function (email: string) {
 //   const existingUser = await MUserModel.findOne({ email });
 //   return existingUser;
 // };
-
-// NewUserSchema.pre('save', async function (next) {
-//   const user = this; // doc
-
-//   user.password = await bcrypt.hash(user.password);
-//   next();
-// });
 
 // set '' after saving password
 /*NewUserSchema.post('save', function (doc, next) {
@@ -79,4 +73,3 @@ NewUserSchema.statics.isUserExists = async function (email: string) {
 });
 */
 // 3. Create a Model.
-export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
