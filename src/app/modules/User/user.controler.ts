@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { userService } from './user.service';
 import { TUserValidSchema } from './user.validation';
+import ResponceFunction from '../../utils/sendResponce';
+import httpStatus from 'http-status';
 
 // import { error } from 'console';
 
@@ -12,11 +14,18 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
     const zodParseUserData = TUserValidSchema.parse(userData);
     const result = await userService.createUserInDb(zodParseUserData);
-    res.status(200).json({
+
+    ResponceFunction(res, {
+      statusCode: httpStatus.OK,
       success: true,
-      message: 'user created successfully!',
+      message: 'user created success',
       data: result,
     });
+    // res.status(200).json({
+    //   success: true,
+    //   message: 'user created successfully!',
+    //   data: result,
+    // });
   } catch (err) {
     next(err);
   }
