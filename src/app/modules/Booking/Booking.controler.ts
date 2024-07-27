@@ -1,10 +1,14 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { TBookingValidationSchema } from './Booking.validation';
 import { bookingService } from './Booking.service';
 
 // import { error } from 'console';
 
-const createBooking = async (req: Request, res: Response) => {
+const createBooking = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const bookingData = req.body;
     const zodParseBookingData = TBookingValidationSchema.parse(bookingData);
@@ -15,11 +19,7 @@ const createBooking = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'somethign worng',
-      error: err,
-    });
+    next(err);
   }
 };
 export const bookingControlers = {

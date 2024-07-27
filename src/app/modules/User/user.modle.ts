@@ -2,6 +2,7 @@ import { model, Schema } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+import { query } from 'express';
 const NewUserSchema = new Schema<TUser, UserModel>(
   {
     name: {
@@ -54,23 +55,15 @@ NewUserSchema.post('save', async function (doc, next) {
   doc.password = '';
   next();
 });
+
+// query middleware
+// NewUserSchema.pre('find', function (next) {
+//   this.find({ isdeleted :{$ne:true}});
+//   next();
+// });
 export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
 //for statc mehod
 NewUserSchema.statics.isUserExists = async function (email: string) {
   const existUser = await MUserModel.findOne({ email });
   return existUser;
 };
-
-//for instance
-// NewUserSchema.methods.isUserExists = async function (email: string) {
-//   const existingUser = await MUserModel.findOne({ email });
-//   return existingUser;
-// };
-
-// set '' after saving password
-/*NewUserSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
-});
-*/
-// 3. Create a Model.

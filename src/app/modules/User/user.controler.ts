@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { userService } from './user.service';
 import { TUserValidSchema } from './user.validation';
 
 // import { error } from 'console';
 
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     //zod validatin
 
@@ -17,11 +17,8 @@ const createUser = async (req: Request, res: Response) => {
       message: 'user created successfully!',
       data: result,
     });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'something went wrong',
-    });
+  } catch (err) {
+    next(err);
   }
 };
 export const UserControlers = {

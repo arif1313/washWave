@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { TSlodValidationSchema } from './Slot.validation';
 import { slodService } from './Slot.service';
 import { Types } from 'mongoose';
 
 // import { error } from 'console';
 
-const createSlod = async (req: Request, res: Response) => {
+const createSlod = async (req: Request, res: Response, next: NextFunction) => {
   try {
     //zod validatin
 
@@ -22,11 +22,7 @@ const createSlod = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: 'somethign worng',
-      error: err,
-    });
+    next(err);
   }
 };
 export const slodControlers = {
