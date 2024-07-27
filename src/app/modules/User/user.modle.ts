@@ -49,10 +49,11 @@ NewUserSchema.pre('save', async function (next) {
   next();
 });
 
-//creating post hook
-// NewUserSchema.post('save', async function () {
-//   console.log(this, 'this is post hook');
-// });
+// creating post hook
+NewUserSchema.post('save', async function (doc, next) {
+  doc.password = '';
+  next();
+});
 export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
 //for statc mehod
 NewUserSchema.statics.isUserExists = async function (email: string) {
