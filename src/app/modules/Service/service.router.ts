@@ -3,6 +3,7 @@ import { serviceControlers } from './sevice.controler';
 
 const Router = express.Router();
 
-Router.post('/create-service', serviceControlers.createService);
+Router.post('/', serviceControlers.createService);
+Router.get('/:id', serviceControlers.getSingleService);
 
 export const serviceRouter = Router;

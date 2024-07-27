@@ -26,6 +26,25 @@ const createService = async (
     next(err);
   }
 };
+const getSingleService = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { servieId } = req.params;
+    const result = await servicesService.getSingleServiceFromDB(servieId);
+    ResponceFunction(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'user created success',
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 export const serviceControlers = {
   createService,
+  getSingleService,
 };
