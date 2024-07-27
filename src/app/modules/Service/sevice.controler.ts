@@ -26,25 +26,48 @@ const createService = async (
     next(err);
   }
 };
-const getSingleService = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getService = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { servieId } = req.params;
-    const result = await servicesService.getSingleServiceFromDB(servieId);
+    const { id } = req.params;
+
+    const result = id
+      ? await servicesService.getSingleServiceFromDB(id)
+      : await servicesService.getAllServiceFromDB();
     ResponceFunction(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'user created success',
+      message: 'Service retrieved successfully',
       data: result,
     });
   } catch (err) {
     next(err);
   }
 };
+const updateService = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const UpdateData = req.body;
+    const result = await servicesService.UpdateSingleServiceFromDB(
+      id,
+      UpdateData,
+    );
+    ResponceFunction(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service updated successfully',
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const serviceControlers = {
   createService,
-  getSingleService,
+  getService,
+  updateService,
 };

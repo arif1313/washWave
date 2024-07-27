@@ -6,12 +6,23 @@ const createsServiceInDb = async (service: TService) => {
 
   return result;
 };
-const getSingleServiceFromDB = async (id: string) => {
-  const result = await ServiceModel.aggregate([{ $match: { _id: id } }]);
+const getSingleServiceFromDB = async (_id: string) => {
+  const result = await ServiceModel.findById({ _id });
+  return result;
+};
+const getAllServiceFromDB = async () => {
+  const result = await ServiceModel.find();
+  return result;
+};
+const UpdateSingleServiceFromDB = async (_id: string, data: object) => {
+  await ServiceModel.updateOne({ _id }, { ...data });
+  const result = await ServiceModel.findById({ _id });
   return result;
 };
 
 export const servicesService = {
   createsServiceInDb,
   getSingleServiceFromDB,
+  getAllServiceFromDB,
+  UpdateSingleServiceFromDB,
 };

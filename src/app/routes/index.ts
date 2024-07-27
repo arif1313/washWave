@@ -25,9 +25,4 @@ const ModuleRouter = [
 ];
 ModuleRouter.forEach((routes) => router.use(routes.path, routes.route));
 
-// router.use('/auth', userRouter);
-// router.use('/slod', slodRouter);
-// router.use('/booking', bookingRouter);
-// router.use('/services', serviceRouter);
-
 export default router;
