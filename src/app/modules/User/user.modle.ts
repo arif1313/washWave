@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
-import { query } from 'express';
+
 const NewUserSchema = new Schema<TUser, UserModel>(
   {
     name: {

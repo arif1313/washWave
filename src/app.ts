@@ -6,6 +6,7 @@ import { slodRouter } from './app/modules/Slot/Slot.router';
 import { bookingRouter } from './app/modules/Booking/Booking.router';
 import { serviceRouter } from './app/modules/Service/service.router';
 import globalErrorHandeler from './app/modules/Middelwares/globalError';
+import notFound from './app/modules/Middelwares/notFound';
 
 const app: Application = express();
 
@@ -17,6 +18,7 @@ app.use('/slod', slodRouter);
 app.use('/booking', bookingRouter);
 app.use('/service', serviceRouter);
 app.use(globalErrorHandeler);
+app.use(notFound);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('hellow');
