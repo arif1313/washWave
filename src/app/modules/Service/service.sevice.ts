@@ -19,10 +19,16 @@ const UpdateSingleServiceFromDB = async (_id: string, data: object) => {
   const result = await ServiceModel.findById({ _id });
   return result;
 };
+const DeleteSingleServiceFromDB = async (_id: string) => {
+  const result = await ServiceModel.findById({ _id });
+  await ServiceModel.deleteOne({ _id });
+  return result;
+};
 
 export const servicesService = {
   createsServiceInDb,
   getSingleServiceFromDB,
   getAllServiceFromDB,
   UpdateSingleServiceFromDB,
+  DeleteSingleServiceFromDB,
 };

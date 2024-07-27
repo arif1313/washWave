@@ -36,7 +36,7 @@ const getService = async (req: Request, res: Response, next: NextFunction) => {
     ResponceFunction(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Service retrieved successfully',
+      message: `${id ? 'Service' : 'Services'} ${'retrieved successfully'}`,
       data: result,
     });
   } catch (err) {
@@ -65,9 +65,35 @@ const updateService = async (
     next(err);
   }
 };
+const DeleteService = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params;
+    const result = await servicesService.DeleteSingleServiceFromDB(id);
+    ResponceFunction(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service deleted successfully',
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const serviceControlers = {
   createService,
   getService,
   updateService,
+  DeleteService,
 };
+//To do
+// {
+//   "success": false,
+//   "statusCode": 404,
+//   "message": "No Data Found",
+//   "data":[]
+// }
