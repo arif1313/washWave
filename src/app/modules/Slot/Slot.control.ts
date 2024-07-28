@@ -1,33 +1,31 @@
-import { NextFunction, Request, Response } from 'express';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { TSlodValidationSchema } from './Slot.validation';
 import { slodService } from './Slot.service';
 import { Types } from 'mongoose';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
+import { catchErrFunction } from '../User/user.controler';
 
 // import { error } from 'console';
 
-const createSlod = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    //zod validatin
+const createSlod = catchErrFunction(async (req, res, next) => {
+  //zod validatin
 
-    const slodData = req.body;
-    const zodParseSlodData = TSlodValidationSchema.parse(slodData);
-    const slodDataWithObjectId = {
-      ...zodParseSlodData,
-      service: new Types.ObjectId(zodParseSlodData.service),
-    };
-    const result = await slodService.createSlodInDb(slodDataWithObjectId);
-    ResponceFunction(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'user created success',
-      data: result,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+  const slodData = req.body;
+  const zodParseSlodData = TSlodValidationSchema.parse(slodData);
+  const slodDataWithObjectId = {
+    ...zodParseSlodData,
+    service: new Types.ObjectId(zodParseSlodData.service),
+  };
+  const result = await slodService.createSlodInDb(slodDataWithObjectId);
+  ResponceFunction(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'user created success',
+    data: result,
+  });
+});
 export const slodControlers = {
   createSlod,
 };
