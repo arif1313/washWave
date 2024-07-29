@@ -14,7 +14,6 @@ const NewUserSchema = new Schema<TUser, UserModel>(
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true,
     },
     password: {
       type: String,
@@ -61,9 +60,10 @@ NewUserSchema.post('save', async function (doc, next) {
 //   this.find({ isdeleted :{$ne:true}});
 //   next();
 // });
-export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
-//for statc mehod
 NewUserSchema.statics.isUserExists = async function (email: string) {
   const existUser = await MUserModel.findOne({ email });
   return existUser;
 };
+
+export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
+//for statc mehod
