@@ -6,7 +6,7 @@ import { ZodValidationMiddelware } from '../Middelwares/zodValidation';
 const Router = express.Router();
 Router.post(
   '/',
-  ZodValidationMiddelware(zodServiceValidations.TServiceValidationSchema),
+  // ZodValidationMiddelware(zodServiceValidations.TServiceValidationSchema),
   serviceControlers.createService,
 );
 Router.get('/:id', serviceControlers.getService);
