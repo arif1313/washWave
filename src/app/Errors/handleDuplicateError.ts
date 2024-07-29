@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TErorSorce, TGenericErrorResponce } from '../interface/error';
 
 const handleDuplicateError = (err: any): TGenericErrorResponce => {

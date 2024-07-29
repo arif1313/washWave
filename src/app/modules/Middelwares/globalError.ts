@@ -11,10 +11,11 @@ import handleValidationError from '../../Errors/handleVlalidationError';
 import handleZodError from '../../Errors/handelzodError';
 import handleCastError from '../../Errors/handleCastError';
 import handleDuplicateError from '../../Errors/handleDuplicateError';
+import AppError from '../../Errors/AppError';
 
 const globalErrorHandeler: ErrorRequestHandler = (error, req, res, next) => {
-  let statusCode = error.statusCode || 500;
-  let message = error.message || 'something went wrong';
+  let statusCode = 500;
+  let message = 'something went wrong';
 
   let errorSource: TErorSorce = [
     {
@@ -43,6 +44,23 @@ const globalErrorHandeler: ErrorRequestHandler = (error, req, res, next) => {
     statusCode = simpifidError?.statusCode;
     message = simpifidError?.message;
     errorSource = simpifidError?.errorSource;
+  } else if (error instanceof AppError) {
+    statusCode = error?.statusCode;
+    message = error?.message;
+    errorSource = [
+      {
+        path: '',
+        message: error?.message,
+      },
+    ];
+  } else if (error instanceof Error) {
+    message = error?.message;
+    errorSource = [
+      {
+        path: '',
+        message: error?.message,
+      },
+    ];
   }
   return res.status(statusCode).json({
     success: false,
