@@ -9,6 +9,8 @@ import config from '../../config';
 import handleError from '../../Errors/handelzodError';
 import handleValidationError from '../../Errors/handleVlalidationError';
 import handleZodError from '../../Errors/handelzodError';
+import handleCastError from '../../Errors/handleCastError';
+import handleDuplicateError from '../../Errors/handleDuplicateError';
 
 const globalErrorHandeler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = error.statusCode || 500;
@@ -28,6 +30,16 @@ const globalErrorHandeler: ErrorRequestHandler = (error, req, res, next) => {
     errorSource = simpifidError?.errorSource;
   } else if (error?.name === 'ValidationError') {
     const simpifidError = handleValidationError(error);
+    statusCode = simpifidError?.statusCode;
+    message = simpifidError?.message;
+    errorSource = simpifidError?.errorSource;
+  } else if (error?.name === 'CastError') {
+    const simpifidError = handleCastError(error);
+    statusCode = simpifidError?.statusCode;
+    message = simpifidError?.message;
+    errorSource = simpifidError?.errorSource;
+  } else if (error?.code === 11000) {
+    const simpifidError = handleDuplicateError(error);
     statusCode = simpifidError?.statusCode;
     message = simpifidError?.message;
     errorSource = simpifidError?.errorSource;
