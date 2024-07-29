@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TServiceValidationSchema } from './service.validation';
+
 import { servicesService } from './service.sevice';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
-import { catchErrFunction } from '../User/user.controler';
-
+import { catchErrFunction } from '../../utils/catchAsync';
 // import { error } from 'console';
-
 const createService = catchErrFunction(async (req, res, next) => {
   const serviceData = req.body;
-  const zodParseServiceData = TServiceValidationSchema.parse(serviceData);
-  const result = await servicesService.createsServiceInDb(zodParseServiceData);
+  const result = await servicesService.createsServiceInDb(serviceData);
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
     success: true,

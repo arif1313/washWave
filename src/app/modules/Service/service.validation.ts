@@ -19,4 +19,4 @@ const TServiceValidationSchema = z.object({
   duration: z.string({ invalid_type_error: 'Duration must be a string' }),
 });
 
-export { TServiceValidationSchema };
+export const zodServiceValidations = { TServiceValidationSchema };

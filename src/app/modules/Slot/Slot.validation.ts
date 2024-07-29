@@ -15,4 +15,4 @@ const TSlodValidationSchema = z.object({
   }),
 });
 
-export { TSlodValidationSchema };
+export const ZodSoldValidations = { TSlodValidationSchema };

@@ -1,15 +1,12 @@
 import { z } from 'zod';
-const objectIdPattern = /^[0-9a-fA-F]{24}$/;
+
 const TBookingValidationSchema = z.object({
-  customer: z
-    .string({ required_error: 'Customer is required' })
-    .regex(objectIdPattern, 'Invalid coustomer Id'),
-  service: z
-    .string({ required_error: 'service is required' })
-    .regex(objectIdPattern, 'Invalid serviceId'),
-  slot: z
-    .string({ required_error: 'slod is required' })
-    .regex(objectIdPattern, 'Invalid slodId'),
+  customer: z.string(),
+
+  service: z.string(),
+
+  slot: z.string(),
+
   vehicleType: z.enum(
     [
       'car',
@@ -36,4 +33,4 @@ const TBookingValidationSchema = z.object({
   }),
 });
 
-export { TBookingValidationSchema };
+export const zodBookingValidations = { TBookingValidationSchema };

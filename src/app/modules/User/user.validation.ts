@@ -20,4 +20,4 @@ const TUserValidSchema = z.object({
   address: z.string({ required_error: 'Phone Number is required' }),
 });
 
-export { TUserValidSchema };
+export const zodUservalidations = { TUserValidSchema };

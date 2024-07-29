@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { TBookingValidationSchema } from './Booking.validation';
+
 import { bookingService } from './Booking.service';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
-import { catchErrFunction } from '../User/user.controler';
-
-// import { error } from 'console';
+import { catchErrFunction } from '../../utils/catchAsync';
 
 const createBooking = catchErrFunction(async (req, res, next) => {
   const bookingData = req.body;
-  const zodParseBookingData = TBookingValidationSchema.parse(bookingData);
-  const result = await bookingService.createBookingInDb(zodParseBookingData);
+  const result = await bookingService.createBookingInDb(bookingData);
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user created success',
+    message: 'Booking created success',
     data: result,
   });
 });

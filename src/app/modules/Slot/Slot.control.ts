@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { TSlodValidationSchema } from './Slot.validation';
 import { slodService } from './Slot.service';
 import { Types } from 'mongoose';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
-import { catchErrFunction } from '../User/user.controler';
+import { catchErrFunction } from '../../utils/catchAsync';
 
 // import { error } from 'console';
 
@@ -13,12 +12,12 @@ const createSlod = catchErrFunction(async (req, res, next) => {
   //zod validatin
 
   const slodData = req.body;
-  const zodParseSlodData = TSlodValidationSchema.parse(slodData);
-  const slodDataWithObjectId = {
-    ...zodParseSlodData,
-    service: new Types.ObjectId(zodParseSlodData.service),
-  };
-  const result = await slodService.createSlodInDb(slodDataWithObjectId);
+
+  // const slodDataWithObjectId = {
+  //   ...slodData,
+  //   service: new Types.ObjectId(slodData.service),
+  // };
+  const result = await slodService.createSlodInDb(slodData);
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
     success: true,
