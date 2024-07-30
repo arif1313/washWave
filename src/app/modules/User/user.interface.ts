@@ -1,4 +1,5 @@
 import { Model } from 'mongoose';
+import { UserRole } from './user.const';
 
 export interface TUser {
   name: string;
@@ -15,6 +16,7 @@ export interface UserModel extends Model<TUser> {
     hasedPassword: string,
   ): Promise<boolean>;
 }
+export type TUserRole = keyof typeof UserRole;
 //for instance
 // export type IUserMethods = {
 //   isUserExists(email: string): Promise<TUser | null>;

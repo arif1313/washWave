@@ -17,7 +17,6 @@ const createService = catchErrFunction(async (req, res, next) => {
 });
 const getService = catchErrFunction(async (req, res, next) => {
   const { id } = req.params;
-
   const result = id
     ? await servicesService.getSingleServiceFromDB(id)
     : await servicesService.getAllServiceFromDB();
@@ -44,6 +43,7 @@ const updateService = catchErrFunction(async (req, res, next) => {
 });
 const DeleteService = catchErrFunction(async (req, res, next) => {
   const { id } = req.params;
+
   const result = await servicesService.DeleteSingleServiceFromDB(id);
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
