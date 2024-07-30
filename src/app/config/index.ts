@@ -6,4 +6,5 @@ export default {
   Port: process.env.PORT,
   DB_URL: process.env.MONGO_URL,
   SOLT_Round: process.env.Bcript_solt_round,
+  Jwt_secret: process.env.JWT_SECRET,
 };
