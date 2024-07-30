@@ -48,22 +48,27 @@ NewUserSchema.pre('save', async function (next) {
   );
   next();
 });
-
 // creating post hook
-NewUserSchema.post('save', async function (doc, next) {
-  doc.password = '';
-  next();
-});
-
-// query middleware
-// NewUserSchema.pre('find', function (next) {
-//   this.find({ isdeleted :{$ne:true}});
+// NewUserSchema.post('save', async function (doc, next) {
+//   doc.password = '';
 //   next();
 // });
 NewUserSchema.statics.isUserExists = async function (email: string) {
   const existUser = await MUserModel.findOne({ email });
   return existUser;
 };
-
+NewUserSchema.statics.ispasswordMatch = async function (
+  currentpassword,
+  hasedPassword,
+) {
+  return await bcrypt.compare(currentpassword, hasedPassword);
+};
 export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);
+
+// query middleware
+// NewUserSchema.pre('find', function (next) {
+//   this.find({ isdeleted :{$ne:true}});
+//   next();
+// });
+
 //for statc mehod
