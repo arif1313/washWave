@@ -13,11 +13,11 @@ Router.post(
   serviceControlers.createService,
 );
 Router.get('/:id', serviceControlers.getService);
-Router.get(
-  '/',
-  AuthValidationMiddelware(UserRole.admin),
-  serviceControlers.getService,
+Router.get('/', serviceControlers.getService);
+Router.put(
+  '/:id',
+  AuthValidationMiddelware(UserRole?.admin),
+  serviceControlers.updateService,
 );
-Router.put('/:id', serviceControlers.updateService);
 Router.delete('/:id', serviceControlers.DeleteService);
 export const serviceRouter = Router;
