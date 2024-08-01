@@ -18,7 +18,7 @@ const NewUserSchema = new Schema<TUser, UserModel>(
     password: {
       type: String,
       required: true,
-      select: 0,
+      minlength: [6, 'Password Must be more than 6 characters'],
     },
     phone: {
       type: String,
@@ -36,6 +36,12 @@ const NewUserSchema = new Schema<TUser, UserModel>(
   },
   {
     timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.password;
+        return ret;
+      },
+    },
   },
 );
 // creating pre hook
@@ -62,6 +68,8 @@ NewUserSchema.statics.ispasswordMatch = async function (
   currentpassword,
   hasedPassword,
 ) {
+  console.log(currentpassword);
+  console.log(hasedPassword);
   return await bcrypt.compare(currentpassword, hasedPassword);
 };
 export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);

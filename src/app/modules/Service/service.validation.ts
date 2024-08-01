@@ -14,7 +14,7 @@ const TServiceValidationSchema = z.object({
     .trim()
     .min(20, { message: 'Description can not be less than 20 characters' }),
   isDeleted: z.boolean(),
-  price: z.string({ invalid_type_error: 'price must be a string' }),
+  price: z.number({ invalid_type_error: 'price must be a string' }),
 
   duration: z.string({ invalid_type_error: 'Duration must be a string' }),
 });

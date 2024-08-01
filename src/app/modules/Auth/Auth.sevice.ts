@@ -6,15 +6,10 @@ import jwt from 'jsonwebtoken';
 import config from '../../config';
 const LoginUserInDB = async (logerData: TlogUser) => {
   const User = await MUserModel.isUserExists(logerData.email);
+
   if (!User) {
     throw new AppError(httpStatus.NOT_FOUND, 'User is not found');
   }
-  // if have soft delete property in user
-  //   const isDeleted = isUserExists?.isDeleted;
-  //   if (isDeleted) {
-  //     throw new AppError(httpStatus.FORBIDDEN, 'User is not found');
-  //   }
-
   if (
     !(await MUserModel.ispasswordMatch(logerData?.password, User?.password))
   ) {
@@ -24,10 +19,14 @@ const LoginUserInDB = async (logerData: TlogUser) => {
     email: User?.email,
     role: User?.role,
   };
+
   const accesToken = jwt.sign(jwtPaylod, config.Jwt_secret as string, {
     expiresIn: '30d',
   });
-  return accesToken;
+  return {
+    token: accesToken,
+    data: User,
+  };
 };
 
 export const AuthService = {

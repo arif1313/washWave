@@ -1,0 +1,3 @@
+1. model created (done)
+2. req-1 user sing up end point and singnup (done)
+3. req-2 user login (done)

@@ -19,7 +19,7 @@ const ServiceSchema = new Schema<TService>(
       default: false,
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, 'Price is required'],
     },
     duration: {

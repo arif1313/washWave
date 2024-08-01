@@ -12,9 +12,9 @@ const createUser = catchErrFunction(async (req, res, next) => {
   const result = await userService.createUserInDb(userData);
 
   ResponceFunction(res, {
-    statusCode: httpStatus.OK,
     success: true,
-    message: 'user created success',
+    statusCode: httpStatus.OK,
+    message: 'User registered successfully',
     data: result,
   });
 });
