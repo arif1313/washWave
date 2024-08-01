@@ -8,11 +8,11 @@ import { UserRole } from '../User/user.const';
 const Router = express.Router();
 Router.post(
   '/',
-  AuthValidationMiddelware(UserRole.admin),
+  AuthValidationMiddelware(UserRole?.admin),
   ZodValidationMiddelware(zodServiceValidations.TServiceValidationSchema),
   serviceControlers.createService,
 );
-Router.get('/:id', AuthValidationMiddelware(), serviceControlers.getService);
+Router.get('/:id', serviceControlers.getService);
 Router.get(
   '/',
   AuthValidationMiddelware(UserRole.admin),

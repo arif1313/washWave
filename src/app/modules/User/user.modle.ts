@@ -68,8 +68,6 @@ NewUserSchema.statics.ispasswordMatch = async function (
   currentpassword,
   hasedPassword,
 ) {
-  console.log(currentpassword);
-  console.log(hasedPassword);
   return await bcrypt.compare(currentpassword, hasedPassword);
 };
 export const MUserModel = model<TUser, UserModel>('User', NewUserSchema);

@@ -2,7 +2,7 @@
 2. req-1 user sing up end point and singnup (done)
 3. req-2 user login (done)
 4. req-3 create service by admin (done)
-5. req-4 
+5. req-4 retrived single data (done)
 
 user token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIyNDg2NTQ0LCJleHAiOjE3MjUwNzg1NDR9.O_rc8JbQIRea42Bh95fnNtGXuEXzNEkPYt5kID_EC50
 admin token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWZhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyMjQ4Njc2MSwiZXhwIjoxNzI1MDc4NzYxfQ.ngfmp_Ih6DedP6UtSPSoncwRF_tce6HZztL9psSVggI
