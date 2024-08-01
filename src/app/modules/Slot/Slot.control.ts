@@ -5,6 +5,8 @@ import { Types } from 'mongoose';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
 import { catchErrFunction } from '../../utils/catchAsync';
+import { MinteCalculate } from '../../utils/timeFormat';
+import AppError from '../../Errors/AppError';
 
 // import { error } from 'console';
 
@@ -13,15 +15,26 @@ const createSlod = catchErrFunction(async (req, res, next) => {
 
   const slodData = req.body;
 
-  // const slodDataWithObjectId = {
-  //   ...slodData,
-  //   service: new Types.ObjectId(slodData.service),
-  // };
-  const result = await slodService.createSlodInDb(slodData);
+  const totalStartMinutes = MinteCalculate(slodData?.startTime);
+
+  const totalEndMinutes = MinteCalculate(slodData?.endTime);
+  const totalSlot = (totalEndMinutes - totalStartMinutes) / 60;
+
+  if (totalEndMinutes <= totalStartMinutes) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'endTime should be greater than startTime',
+    );
+  }
+  const result = await slodService.createSlodInDb(
+    slodData,
+    totalSlot,
+    totalStartMinutes,
+  );
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user created success',
+    message: 'Slots created successfully',
     data: result,
   });
 });

@@ -7,10 +7,10 @@ import { ZodValidationMiddelware } from '../Middelwares/zodValidation';
 
 const Router = express.Router();
 
-Router.post(
-  '/create-slod',
-  ZodValidationMiddelware(ZodSoldValidations.TSlodValidationSchema),
-  slodControlers.createSlod,
-);
+// Router.post(
+//   '/slots',
+//   ZodValidationMiddelware(ZodSoldValidations.TSlodValidationSchema),
+//   slodControlers.createSlod,
+// );
 
 export const slodRouter = Router;
