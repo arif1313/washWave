@@ -9,7 +9,8 @@ import { TUserRole } from '../User/user.interface';
 export const AuthValidationMiddelware = (...roles: TUserRole[]) => {
   return catchErrFunction(
     async (req: Request, res: Response, next: NextFunction) => {
-      const token = req.headers.authorization;
+      const bearer_token: string = req.headers.authorization as string;
+      const token = bearer_token?.split(' ')[1];
       if (!token) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'you are not Authorized');
       }
@@ -18,6 +19,7 @@ export const AuthValidationMiddelware = (...roles: TUserRole[]) => {
         if (err) {
           throw new AppError(httpStatus.UNAUTHORIZED, 'you are not Authorized');
         }
+
         const role = (decoded as JwtPayload)?.role;
         if (roles && !roles.includes(role)) {
           throw new AppError(httpStatus.UNAUTHORIZED, 'you are not Authorized');

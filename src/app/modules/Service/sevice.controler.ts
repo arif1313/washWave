@@ -11,7 +11,7 @@ const createService = catchErrFunction(async (req, res, next) => {
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user created success',
+    message: 'Service created successfully',
     data: result,
   });
 });

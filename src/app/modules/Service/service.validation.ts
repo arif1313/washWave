@@ -16,7 +16,7 @@ const TServiceValidationSchema = z.object({
   isDeleted: z.boolean(),
   price: z.number({ invalid_type_error: 'price must be a string' }),
 
-  duration: z.string({ invalid_type_error: 'Duration must be a string' }),
+  duration: z.number({ invalid_type_error: 'Duration must be a string' }),
 });
 
 export const zodServiceValidations = { TServiceValidationSchema };
