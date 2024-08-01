@@ -31,6 +31,15 @@ const ServiceSchema = new Schema<TService>(
     timestamps: true,
   },
 );
+
+ServiceSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+ServiceSchema.pre('findOne', function (next) {
+  this.findOne({ isDeleted: { $ne: true } });
+  next();
+});
 const ServiceModel = model<TService>('Service', ServiceSchema);
 
 export default ServiceModel;

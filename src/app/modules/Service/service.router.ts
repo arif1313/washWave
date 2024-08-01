@@ -19,5 +19,9 @@ Router.put(
   AuthValidationMiddelware(UserRole?.admin),
   serviceControlers.updateService,
 );
-Router.delete('/:id', serviceControlers.DeleteService);
+Router.delete(
+  '/:id',
+  AuthValidationMiddelware(UserRole.admin),
+  serviceControlers.DeleteService,
+);
 export const serviceRouter = Router;

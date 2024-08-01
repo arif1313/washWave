@@ -20,8 +20,12 @@ const UpdateSingleServiceFromDB = async (_id: string, data: object) => {
   return result;
 };
 const DeleteSingleServiceFromDB = async (_id: string) => {
-  const result = await ServiceModel.findById({ _id });
-  await ServiceModel.deleteOne({ _id });
+  const result = await ServiceModel.findOneAndUpdate(
+    { _id },
+    { isDeleted: true },
+    { new: true },
+  );
+
   return result;
 };
 

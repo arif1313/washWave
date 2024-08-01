@@ -5,6 +5,7 @@
 5. req-4 retrived single service (done)
 6. req-5 retrive all service (done)
 7. req-6 updata a servic by admin (done)
+8. req-7 softDelete by admin (done)
 
 user token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIyNDg2NTQ0LCJleHAiOjE3MjUwNzg1NDR9.O_rc8JbQIRea42Bh95fnNtGXuEXzNEkPYt5kID_EC50
 admin token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWZhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyMjQ4Njc2MSwiZXhwIjoxNzI1MDc4NzYxfQ.ngfmp_Ih6DedP6UtSPSoncwRF_tce6HZztL9psSVggI
