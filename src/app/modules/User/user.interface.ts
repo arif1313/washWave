@@ -9,8 +9,14 @@ export interface TUser {
   role: 'admin' | 'user';
   address: string;
 }
-export interface UserModel extends Model<TUser> {
-  isUserExists(email: string): Promise<TUser | null>;
+export interface TUserWithId extends TUser {
+  _id: string;
+}
+// export interface TUserModelWithId extends Model<TUserWithId> {
+//   isUserExists(email: string): Promise<TUserWithId | null>;
+// }
+export interface UserModel extends Model<TUserWithId> {
+  isUserExists(email: string): Promise<TUserWithId | null>;
   ispasswordMatch(
     currentpassword: string,
     hasedPassword: string,

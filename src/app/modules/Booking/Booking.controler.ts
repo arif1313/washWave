@@ -1,17 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { bookingService } from './Booking.service';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
 import { catchErrFunction } from '../../utils/catchAsync';
+import { MUserModel } from '../User/user.modle';
+import AppError from '../../Errors/AppError';
+import { TUser, TUserWithId } from '../User/user.interface';
+import { bookingService } from './Booking.service';
 
 const createBooking = catchErrFunction(async (req, res, next) => {
   const bookingData = req.body;
-  const result = await bookingService.createBookingInDb(bookingData);
+
+  const User = req.user;
+
+  const FindCustomer = await MUserModel.isUserExists(User?.email);
+
+  const customerId = FindCustomer?._id?.toString();
+
+  if (!FindCustomer) {
+    throw new AppError(404, 'Customer not  exist');
+  }
+  const result = await bookingService.createBookingInDb(
+    bookingData,
+    customerId as string,
+  );
   ResponceFunction(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Booking created success',
+    message: 'Booking successful',
     data: result,
   });
 });

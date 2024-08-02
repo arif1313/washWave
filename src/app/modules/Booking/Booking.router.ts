@@ -1,14 +1,15 @@
 import express /* { Request, Response } */ from 'express';
 import { bookingControlers } from './Booking.controler';
 
-import { zodBookingValidations } from './Booking.validation';
-import { ZodValidationMiddelware } from '../Middelwares/zodValidation';
+import { AuthValidationMiddelware } from '../Middelwares/AuthMiddleware';
+import { UserRole } from '../User/user.const';
 
 const Router = express.Router();
 
 Router.post(
-  '/create-booking',
-  ZodValidationMiddelware(zodBookingValidations.TBookingValidationSchema),
+  '/',
+  AuthValidationMiddelware(UserRole.user),
+  // ZodValidationMiddelware(zodBookingValidations.TBookingValidationSchema),
   bookingControlers.createBooking,
 );
 

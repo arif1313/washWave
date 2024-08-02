@@ -1,21 +1,22 @@
 import { Schema, model } from 'mongoose';
 import { TBooking } from './Booking.interface';
+
 const BookingSchema = new Schema<TBooking>(
   {
     customer: {
       type: Schema.Types.ObjectId,
       required: [true, 'Customer is required'],
-      ref: 'MUserModel',
+      ref: 'User',
     },
     service: {
       type: Schema.Types.ObjectId,
       required: [true, 'Service is required'],
-      ref: 'ServiceModel',
+      ref: 'service',
     },
     slot: {
       type: Schema.Types.ObjectId,
       required: [true, 'Slod is required'],
-      ref: 'SlotModel',
+      ref: 'Slot',
     },
     vehicleType: {
       type: String,
@@ -42,7 +43,7 @@ const BookingSchema = new Schema<TBooking>(
       required: [true, 'Vehicle Model is required'],
     },
     manufacturingYear: {
-      type: String,
+      type: Number,
       required: [true, 'Manufacturing year is required'],
     },
     registrationPlate: {

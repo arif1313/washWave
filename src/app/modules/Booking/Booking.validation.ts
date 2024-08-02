@@ -1,8 +1,6 @@
 import { z } from 'zod';
 
 const TBookingValidationSchema = z.object({
-  customer: z.string(),
-
   service: z.string(),
 
   slot: z.string(),
@@ -24,7 +22,7 @@ const TBookingValidationSchema = z.object({
   ),
   vehicleBrand: z.string({ required_error: 'vehicle Brand is required' }),
   vehicleModel: z.string({ required_error: 'vehicle model is required' }),
-  manufacturingYear: z.string({
+  manufacturingYear: z.number({
     required_error: 'Manufactureing year is required',
   }),
 
