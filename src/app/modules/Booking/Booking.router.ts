@@ -3,13 +3,15 @@ import { bookingControlers } from './Booking.controler';
 
 import { AuthValidationMiddelware } from '../Middelwares/AuthMiddleware';
 import { UserRole } from '../User/user.const';
+import { ZodValidationMiddelware } from '../Middelwares/zodValidation';
+import { zodBookingValidations } from './Booking.validation';
 
 const Router = express.Router();
 
 Router.post(
   '/',
   AuthValidationMiddelware(UserRole.user),
-  // ZodValidationMiddelware(zodBookingValidations.TBookingValidationSchema),
+  ZodValidationMiddelware(zodBookingValidations.TBookingValidationSchema),
   bookingControlers.createBooking,
 );
 

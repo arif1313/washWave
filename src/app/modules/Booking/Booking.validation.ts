@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 const TBookingValidationSchema = z.object({
-  service: z.string(),
+  serviceId: z.string(),
 
-  slot: z.string(),
+  slotId: z.string(),
 
   vehicleType: z.enum(
     [
