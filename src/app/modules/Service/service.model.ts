@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { TService } from './service.interface';
+
 const ServiceSchema = new Schema<TService>(
   {
     name: {
@@ -40,6 +41,6 @@ ServiceSchema.pre('findOne', function (next) {
   this.findOne({ isDeleted: { $ne: true } });
   next();
 });
-const ServiceModel = model<TService>('Service', ServiceSchema);
+const ServiceModel = model<TService>('service', ServiceSchema);
 
 export default ServiceModel;

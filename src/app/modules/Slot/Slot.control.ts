@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { slodService } from './Slot.service';
-import { Types } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 import ResponceFunction from '../../utils/sendResponce';
 import httpStatus from 'http-status';
 import { catchErrFunction } from '../../utils/catchAsync';
@@ -38,8 +38,20 @@ const createSlod = catchErrFunction(async (req, res, next) => {
     data: result,
   });
 });
+const getAvailableSlot = catchErrFunction(async (req, res, next) => {
+  const date = req?.query?.date as string;
+  const id = req?.query?.serviceId as string;
+  const result = await slodService.getAvailableSlotInDB(date, id);
+  ResponceFunction(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Slots created successfully',
+    data: result,
+  });
+});
 export const slodControlers = {
   createSlod,
+  getAvailableSlot,
 };
 
 // import { slodService } from './Slot.service';

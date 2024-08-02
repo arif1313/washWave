@@ -6,8 +6,7 @@ const SlotSchema = new Schema<TSlot>(
     service: {
       type: Schema.Types.ObjectId,
       required: [true, 'Service is required'],
-      unique: true,
-      ref: 'ServiceModel',
+      ref: 'service',
     },
     date: {
       type: String,
@@ -31,6 +30,10 @@ const SlotSchema = new Schema<TSlot>(
     timestamps: true,
   },
 );
+SlotSchema.pre('find', function (next) {
+  this.find({ isBooked: { $ne: 'booked' } });
+  next();
+});
 const SlotModel = model<TSlot>('Slot', SlotSchema);
 
 export default SlotModel;

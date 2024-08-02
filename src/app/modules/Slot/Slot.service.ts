@@ -20,7 +20,13 @@ const createSlodInDb = async (
 
   return result;
 };
-
+const getAvailableSlotInDB = async (date: string, id: string) => {
+  const result = await SlotModel.find({ service: id, date }).populate(
+    'service',
+  );
+  return result;
+};
 export const slodService = {
   createSlodInDb,
+  getAvailableSlotInDB,
 };

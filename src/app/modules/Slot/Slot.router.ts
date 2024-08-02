@@ -1,10 +1,6 @@
 import express from 'express';
 import { slodControlers } from './Slot.control';
 
-import { ZodSoldValidations } from './Slot.validation';
-
-import { ZodValidationMiddelware } from '../Middelwares/zodValidation';
-
 const Router = express.Router();
 
 // Router.post(
@@ -12,5 +8,6 @@ const Router = express.Router();
 //   ZodValidationMiddelware(ZodSoldValidations.TSlodValidationSchema),
 //   slodControlers.createSlod,
 // );
+Router.get('/availability', slodControlers.getAvailableSlot);
 
 export const slodRouter = Router;
