@@ -17,7 +17,7 @@ const ModuleRouter = [
   },
 
   {
-    path: '/booking',
+    path: '/bookings',
     route: bookingRouter,
   },
   {

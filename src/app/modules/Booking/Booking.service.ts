@@ -39,7 +39,54 @@ const createBookingInDb = async (Booking: any, customerId: string) => {
   secondnewbooking.slot = bookedSlot;
   return secondnewbooking;
 };
+const getBookingsInDb = async () => {
+  const result = await BookingModel.aggregate([
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'customer',
+        foreignField: '_id',
+        as: 'customer',
+      },
+    },
+    {
+      $lookup: {
+        from: 'services',
+        localField: 'service',
+        foreignField: '_id',
+        as: 'service',
+      },
+    },
+    {
+      $lookup: {
+        from: 'slots',
+        localField: 'slot',
+        foreignField: '_id',
+        as: 'slot',
+      },
+    },
+    {
+      $unwind: '$customer',
+    },
+    {
+      $unwind: '$service',
+    },
+    {
+      $unwind: '$slot',
+    },
+  ]);
 
+  // .find()
+  //   .populate('customer')
+  //   .populate('service')
+  //   .populate({
+  //     path: 'slot',
+  //     match: { bypassIsBookedFilter: true },
+  //   });
+
+  return result;
+};
 export const bookingService = {
   createBookingInDb,
+  getBookingsInDb,
 };

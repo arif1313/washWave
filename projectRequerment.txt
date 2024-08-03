@@ -8,6 +8,8 @@
 8. req-7 softDelete by admin (done)
 9. req-8 slot create by admin (done),
 10. req-9 Get available slots( done )
+11. req-10 create booking by user (Todo trnx rollback, error handle )
+12. req-11 get all booking by admin
 
 user token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzIyNDg2NTQ0LCJleHAiOjE3MjUwNzg1NDR9.O_rc8JbQIRea42Bh95fnNtGXuEXzNEkPYt5kID_EC50
 admin token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyaWZhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcyMjQ4Njc2MSwiZXhwIjoxNzI1MDc4NzYxfQ.ngfmp_Ih6DedP6UtSPSoncwRF_tce6HZztL9psSVggI

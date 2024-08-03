@@ -31,8 +31,10 @@ const SlotSchema = new Schema<TSlot>(
   },
 );
 SlotSchema.pre('find', function (next) {
+  if (this.getQuery().bypassIsBookedFilter) {
+    return next();
+  }
   this.find({ isBooked: { $ne: 'booked' } });
-  next();
 });
 const SlotModel = model<TSlot>('Slot', SlotSchema);
 

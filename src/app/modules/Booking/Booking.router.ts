@@ -14,5 +14,10 @@ Router.post(
   ZodValidationMiddelware(zodBookingValidations.TBookingValidationSchema),
   bookingControlers.createBooking,
 );
+Router.get(
+  '/',
+  AuthValidationMiddelware(UserRole.admin),
+  bookingControlers.getBookings,
+);
 
 export const bookingRouter = Router;

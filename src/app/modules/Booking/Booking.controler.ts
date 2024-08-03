@@ -31,6 +31,16 @@ const createBooking = catchErrFunction(async (req, res, next) => {
     data: result,
   });
 });
+const getBookings = catchErrFunction(async (req, res, next) => {
+  const result = await bookingService.getBookingsInDb();
+  ResponceFunction(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All bookings retrieved successfully',
+    data: result,
+  });
+});
 export const bookingControlers = {
   createBooking,
+  getBookings,
 };
