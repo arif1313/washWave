@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import SlotModel from '../Slot/Slot.model';
 import BookingModel from './Booking.model';
+import AppError from '../../Errors/AppError';
+import httpStatus from 'http-status';
+import mongoose, { Mongoose } from 'mongoose';
 
 const createBookingInDb = async (Booking: any, customerId: string) => {
   const {
@@ -22,21 +26,37 @@ const createBookingInDb = async (Booking: any, customerId: string) => {
     manufacturingYear,
     registrationPlate,
   });
+  const session: mongoose.ClientSession = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    const bookedSlot = await SlotModel.findByIdAndUpdate(
+      { _id: slotId },
+      { isBooked: 'booked' },
+      { new: true, session },
+    );
+    if (!bookedSlot) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'booking faild');
+    }
 
-  const bookedSlot = await SlotModel.findByIdAndUpdate(
-    { _id: slotId },
-    { isBooked: 'booked' },
-    { new: true },
-  );
-  const newBooking = await (
-    await (
-      await (await BookingModel.create(booking)).populate('customer')
-    ).populate('service')
-  ).populate('slot');
-  const secondnewbooking: any = newBooking.toObject();
+    const newBooking = await BookingModel.create([booking], { session });
+    await newBooking[0].populate('customer');
+    await newBooking[0].populate('service');
+    if (!newBooking.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'booking create faild');
+    }
+    const secondnewbooking: any = newBooking[0].toObject();
 
-  secondnewbooking.slot = bookedSlot;
-  return secondnewbooking;
+    secondnewbooking.slot = bookedSlot;
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    return secondnewbooking;
+  } catch (err) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw new AppError(httpStatus.BAD_REQUEST, 'booking faild ');
+  }
 };
 const getBookingsInDb = async () => {
   const result = await BookingModel.aggregate([

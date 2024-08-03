@@ -6,8 +6,9 @@ import { catchErrFunction } from '../../utils/catchAsync';
 import { MUserModel } from '../User/user.modle';
 import AppError from '../../Errors/AppError';
 import { TUser, TUserWithId } from '../User/user.interface';
-import { bookingService } from './Booking.service';
+
 import { JwtPayload } from 'jsonwebtoken';
+import { bookingService } from './Booking.service';
 
 const createBooking = catchErrFunction(async (req, res, next) => {
   const bookingData = req.body;
