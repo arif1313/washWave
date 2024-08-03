@@ -28,7 +28,6 @@ const createBookingInDb = async (Booking: any, customerId: string) => {
     { isBooked: 'booked' },
     { new: true },
   );
-
   const newBooking = await (
     await (
       await (await BookingModel.create(booking)).populate('customer')
@@ -76,17 +75,20 @@ const getBookingsInDb = async () => {
     },
   ]);
 
-  // .find()
-  //   .populate('customer')
-  //   .populate('service')
-  //   .populate({
-  //     path: 'slot',
-  //     match: { bypassIsBookedFilter: true },
-  //   });
+  return result;
+};
 
+const getSingleBookingsInDb = async (id: string) => {
+  const result = await BookingModel.find({ customer: id })
+    .populate('service')
+    .populate({
+      path: 'slot',
+      match: { bypassIsBookedFilter: true },
+    });
   return result;
 };
 export const bookingService = {
   createBookingInDb,
   getBookingsInDb,
+  getSingleBookingsInDb,
 };

@@ -19,5 +19,9 @@ Router.get(
   AuthValidationMiddelware(UserRole.admin),
   bookingControlers.getBookings,
 );
-
+Router.get(
+  '/my-bookings',
+  AuthValidationMiddelware(UserRole.user),
+  bookingControlers.getSingleBookings,
+);
 export const bookingRouter = Router;

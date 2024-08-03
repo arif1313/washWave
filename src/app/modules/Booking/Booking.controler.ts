@@ -7,6 +7,7 @@ import { MUserModel } from '../User/user.modle';
 import AppError from '../../Errors/AppError';
 import { TUser, TUserWithId } from '../User/user.interface';
 import { bookingService } from './Booking.service';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createBooking = catchErrFunction(async (req, res, next) => {
   const bookingData = req.body;
@@ -40,7 +41,23 @@ const getBookings = catchErrFunction(async (req, res, next) => {
     data: result,
   });
 });
+
+const getSingleBookings = catchErrFunction(async (req, res, next) => {
+  const User: JwtPayload = req.user;
+  const FindCustomer = await MUserModel.isUserExists(User?.email);
+
+  const customerId = FindCustomer?._id?.toString() as string;
+
+  const result = await bookingService.getSingleBookingsInDb(customerId);
+  ResponceFunction(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User bookings retrieved successfully',
+    data: result,
+  });
+});
 export const bookingControlers = {
   createBooking,
   getBookings,
+  getSingleBookings,
 };

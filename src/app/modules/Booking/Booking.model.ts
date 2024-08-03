@@ -54,6 +54,12 @@ const BookingSchema = new Schema<TBooking>(
   },
   {
     timestamps: true,
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.customer;
+        return ret;
+      },
+    },
   },
 );
 
