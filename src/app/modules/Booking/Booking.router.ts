@@ -7,6 +7,7 @@ import { ZodValidationMiddelware } from '../Middelwares/zodValidation';
 import { zodBookingValidations } from './Booking.validation';
 
 const Router = express.Router();
+const myBookingRouter = express.Router();
 
 Router.post(
   '/',
@@ -19,9 +20,9 @@ Router.get(
   AuthValidationMiddelware(UserRole.admin),
   bookingControlers.getBookings,
 );
-Router.get(
-  '/my-bookings',
+myBookingRouter.get(
+  '/',
   AuthValidationMiddelware(UserRole.user),
   bookingControlers.getSingleBookings,
 );
-export const bookingRouter = Router;
+export const bookingRouter = { Router, myBookingRouter };

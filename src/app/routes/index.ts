@@ -18,7 +18,11 @@ const ModuleRouter = [
 
   {
     path: '/bookings',
-    route: bookingRouter,
+    route: bookingRouter.Router,
+  },
+  {
+    path: '/my-bookings',
+    route: bookingRouter.myBookingRouter,
   },
   {
     path: '/services',

@@ -4,7 +4,7 @@ import SlotModel from '../Slot/Slot.model';
 import BookingModel from './Booking.model';
 import AppError from '../../Errors/AppError';
 import httpStatus from 'http-status';
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 const createBookingInDb = async (Booking: any, customerId: string) => {
   const {
@@ -55,46 +55,20 @@ const createBookingInDb = async (Booking: any, customerId: string) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    throw new AppError(httpStatus.BAD_REQUEST, 'booking faild ');
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'something went worng to create booking',
+    );
   }
 };
 const getBookingsInDb = async () => {
-  const result = await BookingModel.aggregate([
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'customer',
-        foreignField: '_id',
-        as: 'customer',
-      },
-    },
-    {
-      $lookup: {
-        from: 'services',
-        localField: 'service',
-        foreignField: '_id',
-        as: 'service',
-      },
-    },
-    {
-      $lookup: {
-        from: 'slots',
-        localField: 'slot',
-        foreignField: '_id',
-        as: 'slot',
-      },
-    },
-    {
-      $unwind: '$customer',
-    },
-    {
-      $unwind: '$service',
-    },
-    {
-      $unwind: '$slot',
-    },
-  ]);
-
+  const result = await BookingModel.find()
+    .populate('customer')
+    .populate('service')
+    .populate({
+      path: 'slot',
+      match: { bypassIsBookedFilter: true },
+    });
   return result;
 };
 
