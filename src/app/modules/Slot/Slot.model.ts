@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Schema, model } from 'mongoose';
 import { TSlot } from './Slot.interface';
 
@@ -9,8 +10,16 @@ const SlotSchema = new Schema<TSlot>(
       ref: 'service',
     },
     date: {
-      type: String,
+      type: Date,
       required: [true, 'Date is required'],
+      validate: {
+        validator: function (v: any) {
+          const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+          return dateRegex.test(v.toISOString().slice(0, 10));
+        },
+        message: (props) =>
+          `${props.value} is not a valid date! Date must be in YYYY-MM-DD format.`,
+      },
     },
     startTime: {
       type: String,

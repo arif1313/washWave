@@ -16,7 +16,7 @@ Basically It is a Car Washing System project. The main focus of this project is 
 
 ## install my project
 
-git clone [myporject link]
+git clone [[myporject link](https://github.com/arif1313/washWave.git)]
 
 ```bash
 npm install
@@ -53,3 +53,11 @@ if you want to make a project like this project -npm init -y -npm install expres
 7. error handle
 8. pre and post hook implement
 9. static implement
+
+## live link:
+
+https://wash-wave2.vercel.app/
+
+## video link:
+
+https://drive.google.com/file/d/1U6rkAOjAT0OUHikwd94amUxeGi7AGkz-/view?usp=drive_link
