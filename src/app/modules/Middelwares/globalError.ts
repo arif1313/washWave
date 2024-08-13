@@ -12,6 +12,7 @@ import handleZodError from '../../Errors/handelzodError';
 import handleCastError from '../../Errors/handleCastError';
 import handleDuplicateError from '../../Errors/handleDuplicateError';
 import AppError from '../../Errors/AppError';
+import httpStatus from 'http-status';
 
 const globalErrorHandeler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500;
@@ -62,12 +63,29 @@ const globalErrorHandeler: ErrorRequestHandler = (error, req, res, next) => {
       },
     ];
   }
-  return res.status(statusCode).json({
-    success: false,
-    statusCode,
-    message,
-    errorSource,
-    stack: config.Node_env === 'devlopment' ? error?.stack : null,
-  });
+  if (statusCode === httpStatus.UNAUTHORIZED) {
+    return res.status(statusCode).json({
+      success: false,
+      statusCode,
+      message,
+
+      stack: config.Node_env === 'devlopment' ? error?.stack : null,
+    });
+  } else if (statusCode === httpStatus.BAD_REQUEST) {
+    return res.status(statusCode).json({
+      success: false,
+      message,
+      errorMessages: errorSource,
+      stack: config.Node_env === 'devlopment' ? error?.stack : null,
+    });
+  } else {
+    return res.status(statusCode).json({
+      success: false,
+      statusCode,
+      message,
+      errorMessages: errorSource,
+      stack: config.Node_env === 'devlopment' ? error?.stack : null,
+    });
+  }
 };
 export default globalErrorHandeler;
